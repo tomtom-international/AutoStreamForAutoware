@@ -1,0 +1,28 @@
+# URL host and path
+urlHostNamePort: api.tomtom.com
+urlUriBasePath: autostream
+
+# Key
+apiKey: <your-key>
+
+# Certificates
+certificatesFile: /some/file/path/AutoStreamRootCAs.pem
+trustedRootCertificateFile: /some/file/path/TomTom_AutoStream_Certificate_Production_Signing_Root_CA_1.pem
+
+# Persistent tile cache
+persistentTileCache: /some/file/path/autostream_tile_cache.db
+
+# HTTP data usage log file
+httpDataUsageLog: /some/file/path/autostream_http_data_usage_log.db
+
+# Number of connections
+numberOfConnections: 2
+
+# Bounding box
+southWestLat: 51.48
+southWestLon: 5.48
+northEastLat: 51.5
+northEastLon: 5.5
+
+# Output file that must be generated
+outputFile: /some/file/path/map.osm

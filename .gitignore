@@ -1,0 +1,7 @@
+**/build/**
+.project
+.settings
+.vscode
+**/install/**
+bdtools.lock.yml
+compliance_*.json
