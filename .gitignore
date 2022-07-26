@@ -5,3 +5,4 @@
 **/install/**
 bdtools.lock.yml
 compliance_*.json
+AutoStreamClient
