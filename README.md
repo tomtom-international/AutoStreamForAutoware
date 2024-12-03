@@ -24,9 +24,11 @@ If you would like to contribute to this project please check the `How to contrib
 # Build Instructions
 - **Dependencies**: See [dependencies.md](docs/dependencies.md) for a list of dependencies
 - **Build**: See [build-unix.md](docs/build-unix.md) to know how to build AutoStream for Autoware Converter
+- **Docker**: See [docker.md](docs/docker.md) for information on how to build a Docker image.
 # Usage
 
 ## Configuration
+### Local
 Below you can see the most relevant parameters in the configuration file that must be updated. 
 Notice that there are more parameters. For a complete documentation, please have a look at the 
 [Application/config/settings.txt](Application/config/settings.txt) file.
@@ -47,12 +49,24 @@ northEastLon: 5.5
 # Name of the output file, i.e., the map that will be generated
 outputFile: /some/file/path/map.osm
 ```
+### Docker
+For Docker, the same configuration file is required. However, the default base directory and output directory are set to `/AutoStreamForAutoware/AutoStreamClient/` and `/config`, respectively. Therefore, `certificatesFile`, `trustedRootCertificateFile`, and `outputFile` in the configuration file should be set as follows:
+
+```bash
+# Certificates needed to enable retrieving map data via AutoStream
+certificatesFile: /AutoStreamForAutoware/AutoStreamClient/certs/AutoStreamRootCAs.pem
+trustedRootCertificateFile: Component/AutoStream/AutoStreamClient/certs/TomTom_AutoStream_Certificate_Production_Signing_Root_CA_1.pem
+
+# Name of the output file, i.e., the map that will be generated
+outputFile: /config/map.osm
+```
 
 ## Getting AutoStream client library and the credentials
 
 As discussed in the above section, to run this converter tool, one must have access to `AutoStream client library`, `api key`, `certificate file` and `trusted root certificate file`. In order to get access to these credentials, [Contact us](mailto:Mariko.Saito@tomtom.com) to sign the Non-Disclosure Agreement (NDA) and Evaluation Agreement (EA) for obtaining the AutoStream client library and the API keys.
 
 ## Running the code
+### Local
 Once the code has been compiled, as explained [here](docs/build-unix.md), the build folder should contain an executable named `AutoStreamToLaneletApp` in the folder `build/Application`. In order to run this executable we must first update the configuration file as explained above.
 
 The executable requires one argument, which is the path to the configuration file.
@@ -62,7 +76,16 @@ cd build
 ```
 After running the executable the converted map for the specified bounding box is available at the 
 location specified in the configuration file.
-
+### Docker
+It is advised to create an empty directory to store all persistent data.
+```bash
+mkdir autostream-converter # This directory will contain all persistent data
+```
+After copying the `settings.txt` to  `autostream-converter`, run the Docker image.
+```bash
+docker run -it --rm -v autostream-converter:/config autostream-converter /config/settings.txt
+```
+The output map will be stored in `autostream-converter` directory.
 # Changelog
 See [CHANGELOG](CHANGELOG.md) for more details.
 
